@@ -1,5 +1,5 @@
-var GRID_WIDTH = 10;
-var GRID_HEIGHT = 10;
+var GRID_WIDTH = 15;
+var GRID_HEIGHT = 15;
 var PREV_WIDTH = GRID_WIDTH;
 var PREV_HEIGHT = GRID_HEIGHT;
 var canvas_obj = null;
