@@ -8,37 +8,82 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
 
     <style>
-        #game_cnv
-        {
+        #game_cnv {
             width: 500px;
             height: 500px;
             stroke-width: 2px;
-            stroke: black;  
+            stroke: black;
         }
 
-        rect.game_tile.gt_dead
-        {   
-            fill:whitesmoke;
+        rect.game_tile.gt_dead {
+            fill: whitesmoke;
             stroke-width: 1px;
-            stroke: black;  
+            stroke: black;
         }
-        rect.game_tile.gt_alive
-        {   
-            fill:black;
+
+        rect.game_tile.gt_alive {
+            fill: black;
             stroke-width: 1px;
-            stroke: black;  
+            stroke: black;
         }
-        rect.game_tile.gt_verified
-        {
+
+        rect.game_tile.gt_verified {
             stroke-width: 5px;
             stroke: green;
+        }
+
+        img {
+            width: 100px;
+            height: auto;
+        }
+
+        .imgs figure
+        {
+            display: inline-block;
+            padding: 20px;
         }
     </style>
 </head>
 
 <body>
     <div id=game_canvas></div>
-    <strong>Gaelway's Game of Life</strong><br>
+    <h1>
+        Conway's game of life is a zero-player game based on the following 5 rules:
+    </h1>
+    <ol>
+        <li>
+            A Black Square is considered <strong>alive</strong>
+        </li>
+        <li>
+            A White Square is considered <strong>dead</strong>
+        </li>
+        <li>
+            If a Black Square has 2 or 3 live neighbors, it lives on to the next iteration
+        </li>
+        <li>
+            Otherwise it dies, due to under/overpopulation
+        </li>
+        <li>
+            A dead cell comes to life if it has exactly 3 alive neighbors
+        </li>
+    </ol>
+
+    <h2> If you're wondering where to start, try these few shapes:</h2>
+    <div class="imgs">
+        <figure>
+            <img src="Spaceship.png">
+            <figcaption>Spaceship</figcaption>
+        </figure>
+        <figure>
+            <img src="PulsarPeriod3.png">
+            <figcaption>3-Frame Pulsar</figcaption>
+        </figure>
+        <figure>
+            <img src="PulsarPeriod15.png">
+            <figcaption>15-Frame Pulsar</figcaption>
+        </figure>
+    </div>
+    <br>
     <form id="grid_size">
         <strong>Grid Size</strong>
         <input id="grid_width" type="number" min="3" max="255">
@@ -48,10 +93,14 @@
     <button id="step_btn">Step =></button>
     <button id="auto-play">Auto Play ▶️</button>
     <button id="stop">Pause ⏸️</button>
-    <form><em>Autoplay Speed:</em><input id="speed" type="number" min="200" max="10000">ms/tick</form>
+    <form><em>Autoplay Speed:</em><input id="speed" type="number" min="200" max="10000">ms/tick</form><br>
+    <strong>STEP:</strong><em id="counter" style="padding-left: 5pt">0</em>
     <div id=game_cnv>
-        
+
     </div>
+    <br>
+
+
 </body>
 
 <footer>

@@ -6,6 +6,7 @@ var canvas_obj = null;
 var data = [];
 var g = null;
 var speed = 1000;
+var stepcounter = 0;
 
 var playing = false;
 
@@ -71,6 +72,7 @@ function autoplay()
 }
 
 function resize_grid(event) {
+    
     nw = document.getElementById("grid_width").value;
     nh = document.getElementById("grid_height").value;
 
@@ -81,6 +83,7 @@ function resize_grid(event) {
         GRID_HEIGHT = nh;
         if (PREV_WIDTH != GRID_WIDTH || PREV_HEIGHT != GRID_HEIGHT)
             draw_grid();
+        $("#counter").text(0);
     } else {
         if (nw < 3 || nw > 255)
             document.getElementById("grid_width").value = PREV_WIDTH;
@@ -90,6 +93,7 @@ function resize_grid(event) {
 }
 
 function step() {
+    $("#counter").text(stepcounter++);
     var new_data = Array(GRID_HEIGHT * GRID_WIDTH).fill(false);
     var observed = Array(GRID_HEIGHT * GRID_WIDTH).fill(false);
     g.selectAll(".game_tile").each(
