@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Game of Life</title>
+    <!-- DEPENDENCIES-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+
+    <style>
+        #game_cnv
+        {
+            width: 500px;
+            height: 500px;
+            stroke-width: 2px;
+            stroke: black;  
+        }
+
+        rect.game_tile.gt_dead
+        {   
+            fill:whitesmoke;
+            stroke-width: 1px;
+            stroke: black;  
+        }
+        rect.game_tile.gt_alive
+        {   
+            fill:black;
+            stroke-width: 1px;
+            stroke: black;  
+        }
+        rect.game_tile.gt_verified
+        {
+            stroke-width: 5px;
+            stroke: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id=game_canvas></div>
+    <strong>Gaelway's Game of Life</strong><br>
+    <form id="grid_size">
+        <strong>Grid Size</strong>
+        <input id="grid_width" type="number" min="3" max="255">
+        x
+        <input id="grid_height" type="number" min="3" max="255">
+    </form><br>
+    <button id="step_btn">Step =></button>
+    <button id="auto-play">Auto Play ▶️</button>
+    <button id="stop">Pause ⏸️</button>
+    <form><em>Autoplay Speed:</em><input id="speed" type="number" min="200" max="10000">ms/tick</form>
+    <div id=game_cnv>
+        
+    </div>
+</body>
+
+<footer>
+    <script src="main.js"></script>
+</footer>
+
+</html>
