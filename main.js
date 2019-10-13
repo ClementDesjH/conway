@@ -67,7 +67,7 @@ function autoplay()
     $("#auto-play").css("border-style","inset")
     $("#step_btn").prop("disabled",true);
 
-    timerId = setInterval(step,500);
+    timerId = setInterval(step,speed);
 }
 
 function resize_grid(event) {
