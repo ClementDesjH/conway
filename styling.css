@@ -1,0 +1,90 @@
+#game_cnv {
+    margin: 2%;
+    width: 470px;
+    height: 470px;
+    stroke-width: 2px;
+    stroke: black;
+}
+
+rect.game_tile.gt_dead {
+    fill: whitesmoke;
+    stroke-width: 1px;
+    stroke: black;
+}
+
+rect.game_tile.gt_alive {
+    fill: black;
+    stroke-width: 1px;
+    stroke: black;
+}
+
+rect.game_tile.gt_verified {
+    stroke-width: 5px;
+    stroke: green;
+}
+
+img {
+    width: 100px;
+    height: auto;
+}
+
+.imgs figure
+{
+    display: inline-block;
+    padding: 20px;
+}
+
+#Rules
+{
+    border: 1px solid black;
+    padding:2%;
+    background: rgb(243, 184, 245);
+}
+
+#Rules h1
+{
+    background: rgba(0,0,0,0.25)
+}
+
+#Examples
+{
+    border: 1px solid black;
+    padding:1%;
+    background: rgb(219, 228, 140)
+}
+
+#Examples h2
+{
+    background: rgba(0,0,0,0.25)
+}
+
+.iter
+{
+    width: 100px;
+    height: 50px;
+}
+
+#auto-play
+{
+    color: green;
+    font-size: 15px;
+}
+
+#stop
+{
+    color: red;
+    font-size: 15px;
+}
+
+#step_btn
+{
+    color: black;
+    font-size: 15px;
+}
+
+#counter,
+#speed
+{
+    text-align: right;
+}
+
