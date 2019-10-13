@@ -9,8 +9,8 @@
 
     <style>
         #game_cnv {
-            width: 500px;
-            height: 500px;
+            width: 470px;
+            height: 470px;
             stroke-width: 2px;
             stroke: black;
         }
@@ -84,18 +84,24 @@
         </figure>
     </div>
     <br>
-    <form id="grid_size">
+    <p id="grid_size">
         <strong>Grid Size</strong>
         <input id="grid_width" type="number" min="3" max="255">
         x
         <input id="grid_height" type="number" min="3" max="255">
-    </form><br>
-    <button id="step_btn">Step =></button>
+        </p>
+    <br>
+    <button id="step_btn">Step ⇨</button>
     <button id="auto-play">Auto Play ▶️</button>
     <button id="stop">Pause ⏸️</button>
     <form><em>Autoplay Speed:</em><input id="speed" type="number" min="200" max="10000">ms/tick</form><br>
-    <strong>STEP:</strong><em id="counter" style="padding-left: 5pt">0</em>
-    <div id=game_cnv>
+    <strong>STEP:</strong><em id="counter" style="padding-left: 5pt">0</em><br>
+    <p style="float:right">
+        Drag Click:
+            <button id="tool_draw" class="tool" onclick="setToolState(1)">Draw 🖌️</button>
+            <button id="tool_erase" class="tool" onclick="setToolState(0)">Erase ✂️</button>
+    </p>
+    <div id=game_cnv style="float:left" onmousedown="mouseClick(event)" onmouseup="mouseOut()">
 
     </div>
     <br>

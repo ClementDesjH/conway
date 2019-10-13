@@ -1,5 +1,5 @@
-var GRID_WIDTH = 3;
-var GRID_HEIGHT = 3;
+var GRID_WIDTH = 10;
+var GRID_HEIGHT = 10;
 var PREV_WIDTH = GRID_WIDTH;
 var PREV_HEIGHT = GRID_HEIGHT;
 var canvas_obj = null;
@@ -7,6 +7,17 @@ var data = [];
 var g = null;
 var speed = 1000;
 var stepcounter = 0;
+var tool = 1;
+var mouseDown = 0;
+
+
+function mouseClick(event) {
+    mouseDown = event.which
+}
+
+function mouseOut() {
+    mouseDown = 0
+}
 
 var playing = false;
 
@@ -24,17 +35,15 @@ $(document).ready(function () {
 
     canvas_obj.append("g");
 
-
     $("#grid_size").on("change", {
             x: PREV_WIDTH,
             y: PREV_HEIGHT,
         },
         resize_grid);
 
-    $("#speed").on("change", function()
-    {
+    $("#speed").on("change", function () {
         var new_speed = document.getElementById("speed").value;
-        if(new_speed >= 200 || new_speed <= 10000)
+        if (new_speed >= 200 || new_speed <= 10000)
             speed = new_speed
         else
             document.getElementById("speed").value = speed;
@@ -43,36 +52,83 @@ $(document).ready(function () {
     $("#step_btn").on("click", {}, step);
 
     $("#auto-play").on("click", {}, autoplay);
-    $("#stop").on("click",{},stop);
+    $("#stop").on("click", {}, stop);
 
     draw_grid();
 });
 
-function stop()
-{
-    if(!playing)
+function setToolState(toolID) {
+    tool = toolID;
+    d3.selectAll(".game_tile").on("mousemove",null);
+    $(".tool").prop("disabled",false);
+    $(".tool").css("border-style","outset");
+
+
+    switch (toolID) {
+        case 0:
+                $("#tool_erase").prop("disabled",true);
+                $("#tool_erase").css("border-style","inset");
+            g.selectAll(".game_tile")
+                .on("mousemove", function (d, i) {
+                    if ((mouseDown != 1 || tool != 0 || !d))
+                        return
+                    console.log("erasing")
+                    data[i] = false;
+                    if (!data[i]) {
+                        d3.select(this).classed("gt_alive", false);
+                        d3.select(this).classed("gt_dead", true);
+                    }
+                    g.selectAll(".game_tile").data(data);
+                });
+            break;
+        case 1:
+                $("#tool_draw").prop("disabled",true);
+                $("#tool_draw").css("border-style","inset");
+                g.selectAll(".game_tile")
+                .on("mousemove", function (d, i) {
+                    if ((mouseDown != 1 || tool != 1 || d))
+                        return
+                    data[i] = true;
+                    console.log("drawing")
+                    //else
+                    // data[i] = true;
+                    if (data[i]) {
+                        d3.select(this).classed("gt_alive", true);
+                        d3.select(this).classed("gt_dead", false);
+                    }
+                    // else {
+                    //     d3.select(this).classed("gt_alive", false);
+                    //     d3.select(this).classed("gt_dead", true);
+                    // }
+                    g.selectAll(".game_tile").data(data);
+                });
+            break;
+    }
+}
+
+function stop() {
+    if (!playing)
         return;
 
     clearInterval(timerId);
     playing = false;
-    
-    $("#auto-play").css("border-style","outset")
-    $("#step_btn").prop("disabled",false);
+
+    $("#auto-play").css("border-style", "outset")
+    $("#step_btn").prop("disabled", false);
 }
 
-function autoplay()
-{
-    if(playing)
+function autoplay() {
+    if (playing)
         return;
     playing = true;
-    $("#auto-play").css("border-style","inset")
-    $("#step_btn").prop("disabled",true);
+    $("#auto-play").css("border-style", "inset")
+    $("#step_btn").prop("disabled", true);
 
-    timerId = setInterval(step,speed);
+    timerId = setInterval(step, speed);
 }
 
 function resize_grid(event) {
-    
+
     nw = document.getElementById("grid_width").value;
     nh = document.getElementById("grid_height").value;
 
@@ -93,7 +149,7 @@ function resize_grid(event) {
 }
 
 function step() {
-    $("#counter").text(stepcounter++);
+    $("#counter").text(++stepcounter);
     var new_data = Array(GRID_HEIGHT * GRID_WIDTH).fill(false);
     var observed = Array(GRID_HEIGHT * GRID_WIDTH).fill(false);
     g.selectAll(".game_tile").each(
@@ -226,4 +282,5 @@ function draw_grid() {
             }
             g.selectAll(".game_tile").data(data);
         });
+    setToolState(tool);
 }
